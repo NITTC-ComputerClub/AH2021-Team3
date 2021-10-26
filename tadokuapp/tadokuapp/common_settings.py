@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 以下allauth用
+    'accounts',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +52,7 @@ ROOT_URLCONF = 'tadokuapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,6 +85,28 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+SITE_ID = 1
+
+# Allauth settings
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # デフォルトの認証基盤
+    # メールアドレスとパスワードの両方を用いて認証するために必要
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # メールアドレス（とパスワードで）認証する
+ACCOUNT_USERNAME_REQUIRED = True  # サインアップ（ユーザー登録）の時にユーザーネームを尋ねる
+ACCOUNT_EMAIL_REQUIRED = True  # サインアップ（ユーザー登録）の時にメールアドレスを尋ねる
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # メール検証を必須とする
+
+LOGIN_URL = '/account/login/'  # ログインURLの設定
+LOGIN_REDIRECT_URL = '/'  # ログイン後のリダイレクト先
+ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login/'  # 　ログアウト後のリダイレクト先
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # テスト用のコンソールにメールを出力する
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 # Internationalization
