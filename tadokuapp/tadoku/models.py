@@ -6,9 +6,9 @@ from django.conf import settings
 
 
 class Books(models.Model):
-    title = models.CharField(null=False, max_length=100)
+    title = models.CharField(null=False, max_length=255)
     words = models.IntegerField(null=False)
-    series = models.CharField(null=True, blank=True, max_length=100)
+    series = models.CharField(null=True, blank=True, max_length=255)
     yl = models.FloatField(null=True, blank=True)
     isbn = models.CharField(null=False, unique=True, max_length=13)
 
@@ -26,6 +26,6 @@ class ReadBooks(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
     book = models.ForeignKey(Books, on_delete=models.CASCADE, null=False)
     comment = models.TextField(null=True, blank=True)
-    rate = models.SmallIntegerField(
+    rate = models.PositiveSmallIntegerField(
         null=True, blank=True, choices=RATE_CHOICES)
     read_at = models.DateField(auto_now_add=True)
