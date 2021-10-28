@@ -9,7 +9,7 @@ class Books(models.Model):
     title = models.CharField(null=False, max_length=100)
     words = models.IntegerField(null=False)
     series = models.CharField(null=True, blank=True, max_length=100)
-    yl = models.SmallIntegerField(null=True, blank=True)
+    yl = models.FloatField(null=True, blank=True)
     isbn = models.CharField(null=False, unique=True, max_length=13)
 
 
