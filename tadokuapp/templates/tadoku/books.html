@@ -1,0 +1,12 @@
+{% extends '../base.html' %}
+
+{% block content %}
+
+{% for book in object_list %}
+<tr>
+    <td>{{ book.book.title }}</td>
+    <td><a href="{{ book.id }}">詳細</a></td>
+</tr>
+{% endfor %}
+
+{% endblock content %}
