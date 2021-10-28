@@ -25,7 +25,7 @@ class ReadBooks(models.Model):
     reader = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
     book = models.ForeignKey(Books, on_delete=models.CASCADE, null=False)
-    comment = models.CharField(null=True, blank=True, max_length=500)
+    comment = models.TextField(null=True, blank=True)
     rate = models.SmallIntegerField(
         null=True, blank=True, choices=RATE_CHOICES)
     read_at = models.DateField(auto_now_add=True)
