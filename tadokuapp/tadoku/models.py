@@ -5,7 +5,7 @@ from django.conf import settings
 # Create your models here.
 
 
-class Books(models.Model):
+class Book(models.Model):
     title = models.CharField(null=False, max_length=255)
     words = models.IntegerField(null=False)
     series = models.CharField(null=True, blank=True, max_length=255)
@@ -13,7 +13,7 @@ class Books(models.Model):
     isbn = models.CharField(null=False, unique=True, max_length=13)
 
 
-class ReadBooks(models.Model):
+class ReadBook(models.Model):
     RATE_CHOICES = [
         (1, '★'),
         (2, '★★'),
@@ -24,7 +24,7 @@ class ReadBooks(models.Model):
 
     reader = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
-    book = models.ForeignKey(Books, on_delete=models.CASCADE, null=False)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null=False)
     comment = models.TextField(null=True, blank=True)
     rate = models.PositiveSmallIntegerField(
         null=True, blank=True, choices=RATE_CHOICES)
