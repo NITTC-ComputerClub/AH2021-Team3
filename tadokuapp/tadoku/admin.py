@@ -3,13 +3,11 @@ from .models import Book, ReadBook
 # Register your models here.
 
 
+@admin.register(Book)
 class BooksAdmin(admin.ModelAdmin):
-    model = Book
+    pass
 
 
+@admin.register(ReadBook)
 class ReadBooksAdmin(admin.ModelAdmin):
-    model = ReadBook
-
-
-admin.site.register(Book, BooksAdmin)
-admin.site.register(ReadBook, ReadBooksAdmin)
+    pass
