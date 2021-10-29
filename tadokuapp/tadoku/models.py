@@ -35,7 +35,8 @@ class ReadBook(models.Model):
     comment = models.TextField(null=True, blank=True)
     rate = models.PositiveSmallIntegerField(
         null=True, blank=True, choices=RATE_CHOICES)
-    read_at = models.DateField(auto_now_add=True)
+    read_at = models.DateField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.book.title + " : " + self.reader.username
