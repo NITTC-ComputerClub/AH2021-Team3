@@ -17,7 +17,7 @@ class Book(models.Model):
 
     class Meta:
         verbose_name = "Book"
-        verbose_name_plural = "Book"
+        verbose_name_plural = "Books"
 
 
 class ReadBook(models.Model):
@@ -42,4 +42,4 @@ class ReadBook(models.Model):
 
     class Meta:
         verbose_name = "Read Book"
-        verbose_name_plural = "Read Book"
+        verbose_name_plural = "Read Books"
