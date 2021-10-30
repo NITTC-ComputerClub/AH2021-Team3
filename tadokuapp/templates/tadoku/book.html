@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+<p>isbn:{{book.isbn}}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.rate }}
+    {{form.comment}}
+    {{form.isbn}}
+    <input type="submit" value="送信">
+</form>
+
+{% endblock content %}
