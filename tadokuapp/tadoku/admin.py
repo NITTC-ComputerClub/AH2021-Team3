@@ -5,9 +5,13 @@ from .models import Book, ReadBook
 
 @admin.register(Book)
 class BooksAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('isbn', 'title', 'words', 'series', 'yl')
+    list_filter = ['yl']
+    search_fields = ['isbn']
 
 
 @admin.register(ReadBook)
 class ReadBooksAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('reader', 'book', 'read_at', 'created_at', 'rate')
+    list_filter = ['reader', 'book']
+    search_fields = ['reader']
