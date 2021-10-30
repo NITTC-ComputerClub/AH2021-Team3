@@ -12,6 +12,13 @@ class Book(models.Model):
     yl = models.FloatField(null=True, blank=True)
     isbn = models.CharField(null=False, unique=True, max_length=13)
 
+    def __str__(self):
+        return self.title + " : " + str(self.isbn)
+
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
+
 
 class ReadBook(models.Model):
     RATE_CHOICES = [
@@ -28,4 +35,12 @@ class ReadBook(models.Model):
     comment = models.TextField(null=True, blank=True)
     rate = models.PositiveSmallIntegerField(
         null=True, blank=True, choices=RATE_CHOICES)
-    read_at = models.DateField(auto_now_add=True)
+    read_at = models.DateField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.book.title + " : " + self.reader.username
+
+    class Meta:
+        verbose_name = "Read Book"
+        verbose_name_plural = "Read Books"
