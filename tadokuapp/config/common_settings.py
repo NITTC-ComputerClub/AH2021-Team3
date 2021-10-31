@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tadoku',
+    'widget_tweaks',
     # 以下allauth用
     'accounts',
     'django.contrib.sites',
