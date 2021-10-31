@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from django.shortcuts import redirect
 from ..models import ReadBook, Book
 from ..forms import ReadBookForm
+import datetime
 
 
 class BookCreateView(CreateView):
@@ -42,11 +43,7 @@ class BookCreateView(CreateView):
 
 class ReadBookCreateView(LoginRequiredMixin, CreateView):
     # 前ページからのリダイレクトで、必ずデータベース上に存在する本のisbnがパラメータでついてくる
-    # 初期値を代入してそのままPOSTすると、なぜか初期値が入力されたところが入っていない状態でPOSTされるので、
-    # そもそもフォームで表示しない
-
-    # TODO:
-    # その代わり、get_context_dataをオーバーライドし、ユーザー情報と本の情報を埋め込んでtemplate上で表示する
+    # get_context_dataをオーバーライドし、ユーザー情報と本の情報を埋め込んでtemplate上で表示する
     # また、form_validをオーバーライドし、あらかじめ持っている本の情報とユーザー情報を追加して保存する
     # 参考:https://igreks.jp/dev/django-createview%E3%82%84updateview%E5%88%A9%E7%94%A8%E6%99%82%E3%80%81%E4%BB%BB%E6%84%8F%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E8%A3%8F%E5%81%B4%E3%81%A7%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B/
 
@@ -60,7 +57,6 @@ class ReadBookCreateView(LoginRequiredMixin, CreateView):
         # contextにユーザー情報と本の情報を追加する
         isbn = self.request.GET.get('isbn')
         context['book'] = Book.objects.get(isbn=isbn)
-
         return context
 
     def form_valid(self, form):
@@ -80,4 +76,6 @@ class ReadBookCreateView(LoginRequiredMixin, CreateView):
         # POST時にisbnが必要になるので、hidden inputにGETパラメータについているisbnを入れておく
         isbn = self.request.GET.get('isbn')
         initial['isbn'] = isbn
+        # 今日の日付を初期値として入れておく
+        initial['read_at'] = datetime.datetime.today()
         return initial
