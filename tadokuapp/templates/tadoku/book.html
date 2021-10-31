@@ -2,10 +2,6 @@
 
 {% block head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
-
-1
-2
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $(function () {
@@ -21,16 +17,64 @@
 
 {% block content %}
 
-<h3>{{ title }}</h3>
-<p>isbn:{{book.isbn}}</p>
-<form method="post">
-    {% csrf_token %}
-    {{form.read_at}}
-    {{ form.rate }}
-    {{form.comment}}
-    {{form.isbn}}
-    <input type="submit" value="送信">
-</form>
+<!-- django-widget-tweaksをロードする -->
+{% load widget_tweaks %}
 
 
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <form method="post">
+                {% csrf_token %}
+                {{form.isbn}}
+                <div class='columns'>
+                    <div class="column is-8">
+                        {% if form.is_bound %}
+                            {% render_field form.read_at class="input is-danger" placeholder='読んだ日付' %}
+                            
+                        {% else %}                      
+                            {% render_field form.read_at class="input" placeholder='読んだ日付' %}    
+                        {% endif %}               
+                    </div>
+                    <div class='column is-4'>
+                        
+                        {% if form.is_bound %}
+                            <div class='select is-rounded'>
+                            {% render_field form.rate class="is-danger" placeholder='評価' %} 
+                            </div>
+                            
+                        {% else %}            
+                            <div class='select is-rounded'>          
+                            {% render_field form.rate class="input" placeholder='読んだ日付' %} 
+                            </div>   
+                        {% endif %}
+                         
+                        
+                    </div>
+                </div>
+                <div class='columns'>
+                    <div class='column'>
+                        {% if form.is_bound %}
+                            {% render_field form.comment class="input textarea is-danger" placeholder='コメントを入力' %}
+                            
+                        {% else %}                      
+                            {% render_field form.comment class="input textarea" placeholder='コメントを入力' %}   
+                        {% endif %}
+
+
+                        
+                    </div>
+                </div>
+
+                <div class='columns'>
+                    
+                    <div class='column'>
+                        <input class='button' type="submit" value='送信'>
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+    </div>
+</section>
 {% endblock content %}

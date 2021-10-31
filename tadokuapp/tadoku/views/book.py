@@ -71,6 +71,10 @@ class ReadBookCreateView(LoginRequiredMixin, CreateView):
         post.save()  # データベースへ保存
         return redirect('tadoku:books')
 
+    def form_invalid(self, form):
+        print(form)
+        return super().form_invalid(form)
+
     def get_initial(self):
         initial = super().get_initial()
         # POST時にisbnが必要になるので、hidden inputにGETパラメータについているisbnを入れておく
@@ -78,4 +82,5 @@ class ReadBookCreateView(LoginRequiredMixin, CreateView):
         initial['isbn'] = isbn
         # 今日の日付を初期値として入れておく
         initial['read_at'] = datetime.datetime.today()
+        initial['rate'] = '5'
         return initial

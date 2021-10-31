@@ -1,13 +1,72 @@
 {% extends '../base.html' %}
 
 {% block content %}
+<!-- django-widget-tweaksをロードする -->
+{% load widget_tweaks %}
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <form method="post">
+                {% csrf_token %}
+                <div class='columns'>
+                    <div class="column is-8">
+                        {% if form.is_bound %}
+                            {% render_field form.isbn class="input is-danger" placeholder='本のISBN' %}
+                            
+                        {% else %}                      
+                            {% render_field form.isbn class="input" placeholder='本のISBN' %}    
+                        {% endif %}               
+                    </div>
+                    <div class='column is-4'>
+                        
+                        {% if form.is_bound %}
+                            {% render_field form.title class="input is-danger" placeholder='本のタイトル' %} 
+                            
+                            
+                        {% else %}            
+                            {% render_field form.title class="input" placeholder='本のタイトル' %}   
+                        {% endif %}
+                         
+                        
+                    </div>
+                </div>
+                <div class='columns'>
+                    <div class='column'>
+                        {% if form.is_bound %}
+                            {% render_field form.series class="input is-danger" placeholder='シリーズ名' %}
+                        {% else %}                      
+                            {% render_field form.series class="input" placeholder='シリーズ名' %} 
+                        {% endif %}
+                    </div>
 
-<h3>{{ title }}</h3>
+                    <div class='column'>
+                        {% if form.is_bound %}
+                            {% render_field form.yl class="input is-danger" placeholder='YL' %}
+                        {% else %}                      
+                            {% render_field form.yl class="input" placeholder='YL' %} 
+                        {% endif %}
+                    </div>
+                </div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="送信">
-</form>
+                <div class='columns'>
+                    <div class='column'>
+                        {% if form.is_bound %}
+                            {% render_field form.words class="input is-danger" placeholder='語数' %}
+                        {% else %}                      
+                            {% render_field form.words class="input" placeholder='語数' %} 
+                        {% endif %}
+                    </div>
+                </div>
 
+                <div class='columns'>
+                    
+                    <div class='column'>
+                        <input class='button' type="submit" value='送信'>
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+    </div>
+</section>
 {% endblock content %}

@@ -1,10 +1,31 @@
 {% extends '../base.html' %}
 
 {% block content %}
+<!-- django-widget-tweaksをロードする -->
+{% load widget_tweaks %}
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="column is-8 is-offset-2">
+                <p>バーコード読み取りをここに実装</p>
+                <hr class="login-hr">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.is_bound %}
+                        {% render_field form.isbn class="input is-danger" placeholder='ISBNをハイフンなしで入力' %}
+                        <div class='notification is-danger'>{{ form.isbn.errors }}</div>
+                    {% else %}
+                        {% render_field form.isbn class="input" placeholder='ISBNをハイフンなしで入力' %}
+                    {% endif %}
+                    
 
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="送信">
-</form>
-
+                    <div class='column'>
+                        <input class='button' type="submit" value='送信'>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</section>
 {% endblock content %}
