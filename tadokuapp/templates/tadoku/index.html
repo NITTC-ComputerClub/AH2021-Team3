@@ -1,6 +1,25 @@
 {% extends '../base.html' %}
 
 {% block content %}
-    <h1>This is index.</h1>
-    <button class="button is-primary">Primary</button>
+
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-narrow">
+                {% if user.is_authenticated %}
+                    <h3 class="title has-text-black">ようこそ　{{user.username}}　さん</h3>
+                    <hr class="login-hr">
+                    <a class="button subtitle has-text-black" href="{% url 'tadoku:isbn' %}">本を登録する</a>
+                {% else %}
+                    <h3 class="title has-text-black">本を登録するにはログインしてください</h3>
+                    <a class="button" href="{% url 'account_login' %}">ログイン</a>
+                    <a class="button" href="{% url 'account_signup' %}">新規登録</a>
+                {% endif %}
+                    
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
 {% endblock content %}

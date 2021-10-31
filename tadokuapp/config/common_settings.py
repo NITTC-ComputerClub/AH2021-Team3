@@ -104,8 +104,8 @@ ACCOUNT_EMAIL_REQUIRED = True  # サインアップ（ユーザー登録）の�
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # メール検証を必須とする
 
 LOGIN_URL = '/account/login/'  # ログインURLの設定
-LOGIN_REDIRECT_URL = '/'  # ログイン後のリダイレクト先
-ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login/'  # 　ログアウト後のリダイレクト先
+LOGIN_REDIRECT_URL = 'tadoku:index'  # ログイン後のリダイレクト先
+ACCOUNT_LOGOUT_REDIRECT_URL = 'tadoku:index'  # 　ログアウト後のリダイレクト先
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # テスト用のコンソールにメールを出力する
 AUTH_USER_MODEL = 'accounts.CustomUser'

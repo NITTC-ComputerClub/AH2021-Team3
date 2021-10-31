@@ -7,13 +7,113 @@
     <title>Tadoku App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check for click events on the navbar burger icon
+            $(".navbar-burger").click(function() {
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                $(".navbar-burger").toggleClass("is-active");
+                $(".navbar-menu").toggleClass("is-active");
+
+            });
+        });
+    </script>
+
     {% block head %}
     {% endblock head %}
 </head>
 
 <body>
-    <!-- django-widget-tweaksをロードする -->
-    {% load widget_tweaks %}
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'tadoku:index' %}">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-book-open"></i>
+                    </span>
+                    <span>
+                        <div class="has-text-weight-bold">
+                            TadokuApp
+                        </div>
+                    </span>
+                </span>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href={% url 'tadoku:index' %}>
+                    Home
+                </a>
+                
+                
+                {% if user.is_authenticated %}
+                    <a class="navbar-item" href={% url 'tadoku:isbn' %}>
+                        Add book
+                    </a>
+                    <a class="navbar-item" href={% url 'tadoku:books' %}>
+                        Books
+                    </a>
+                {% endif %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        More
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            About
+                        </a>
+                        <a class="navbar-item">
+                            Contact
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            {% if user.is_authenticated %}
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class='buttons'>
+                        <a class="button is-outlined is-rounded" href={% url 'account_logout' %}>
+                            <strong>Sign out</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href={% url 'account_signup' %}>
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href={% url 'account_login' %}>
+                            Log in
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+
+            
+        </div>
+    </nav>
 
     {% block content %}
 
