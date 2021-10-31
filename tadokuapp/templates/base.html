@@ -56,10 +56,11 @@
                     Home
                 </a>
                 
-                <a class="navbar-item" href={% url 'tadoku:isbn' %}>
-                    Add book
-                </a>
+                
                 {% if user.is_authenticated %}
+                    <a class="navbar-item" href={% url 'tadoku:isbn' %}>
+                        Add book
+                    </a>
                     <a class="navbar-item" href={% url 'tadoku:books' %}>
                         Books
                     </a>
