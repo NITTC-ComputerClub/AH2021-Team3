@@ -27,7 +27,7 @@
 
 <body>
 
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="{% url 'tadoku:index' %}">
                 <span class="icon-text">
@@ -55,11 +55,15 @@
                 <a class="navbar-item" href={% url 'tadoku:index' %}>
                     Home
                 </a>
-
+                
                 <a class="navbar-item" href={% url 'tadoku:isbn' %}>
                     Add book
                 </a>
-
+                {% if user.is_authenticated %}
+                    <a class="navbar-item" href={% url 'tadoku:books' %}>
+                        Books
+                    </a>
+                {% endif %}
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         More

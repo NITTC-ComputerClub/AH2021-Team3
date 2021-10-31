@@ -23,7 +23,7 @@
 
 <section class="hero is-fullheight">
     <div class="hero-body">
-        <div class="container has-text-centered">
+        <div class="container">
             <form method="post">
                 {% csrf_token %}
                 {{form.isbn}}
@@ -52,7 +52,7 @@
                         
                     </div>
                 </div>
-                <div class='columns'>
+                <div class='columns is-centered'>
                     <div class='column'>
                         {% if form.is_bound %}
                             {% render_field form.comment class="input textarea is-danger" placeholder='コメントを入力' %}
@@ -66,9 +66,9 @@
                     </div>
                 </div>
 
-                <div class='columns'>
+                <div class='columns is-centered'>
                     
-                    <div class='column'>
+                    <div class='column is-narrow'>
                         <input class='button' type="submit" value='送信'>
                     </div>
                 </div>

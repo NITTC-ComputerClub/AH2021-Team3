@@ -1,12 +1,37 @@
 {% extends '../base.html' %}
 
 {% block content %}
-<h1>ログインユーザーの読んだ本の一覧画面</h1>
-{% for book in object_list %}
-<tr>
-    <td>{{ book.book.title }}</td>
-    <td><a href="{{book.book.pk}}">詳細</a></td>
-</tr>
-{% endfor %}
+
+<div class='columns is-centered'>
+    <div class="column is-narrow">
+        <table class="table is-striped">
+            <thead>
+                <tr>
+                <th>Book</th>
+                <th>Series</th>
+                <th>YL</th>
+                <th>Words</th>
+                <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for book in object_list %}
+                <tr>
+                    <td>{{ book.book.title }}</td>
+                    <td>{{book.book.series}}</td>
+                    <td>{{book.book.yl}}</td>
+                    <td>{{book.book.words}}</td>
+                    <td><a href="{{book.book.pk}}">詳細</a></td>
+                </tr>
+                {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
 
 {% endblock content %}
