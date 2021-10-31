@@ -7,7 +7,7 @@
     <div class="hero-body">
         <div class="container has-text-centered">
             <div class="column is-8 is-offset-2">
-                <p>バーコード読み取りをここに実装</p>
+                <div id="reader"></div>
                 <hr class="login-hr">
                 <form method="post">
                     {% csrf_token %}
@@ -28,4 +28,7 @@
         </div>
     </div>
 </section>
+{% load static %}
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="{% static "tadoku/js/isbn.js" %}"></script>
 {% endblock content %}
