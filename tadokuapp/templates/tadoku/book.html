@@ -27,10 +27,45 @@
             <form method="post">
                 {% csrf_token %}
                 {{form.isbn}}
+
+                {% if form.is_bound %}
+                <article class='message is-warning'>
+                    <div class='message-header'>
+                        <p>エラー</p>
+                    </div>
+                    <div class='messsage-body'>
+                        入力されたフォームに誤りがあります
+                    </div>
+                </article>>
+                {% endif %}
+
+                <div class='columns'>
+                    <div class='column'>
+                        Title: {{book.title}}
+                    </div>
+                    <div class='column'>
+                        Series: {{book.series}}
+                    </div>
+                </div>
+
+                <div class='columns'>
+                    <div class='column'>
+                        YL: {{book.yl}}
+                    </div>
+                    <div class='column'>
+                        Words: {{book.words}}
+                    </div>
+                    <div class='column'>
+                        ISBN: {{book.isbn}}
+                    </div>
+                </div>
+
+
                 <div class='columns'>
                     <div class="column is-8">
-                        {% if form.is_bound %}
+                        {% if form.read_at.errors %}
                             {% render_field form.read_at class="input is-danger" placeholder='読んだ日付' %}
+                            <div class='notification is-danger'>{{ form.read_at.errors }}</div>
                             
                         {% else %}                      
                             {% render_field form.read_at class="input" placeholder='読んだ日付' %}    
@@ -54,9 +89,9 @@
                 </div>
                 <div class='columns is-centered'>
                     <div class='column'>
-                        {% if form.is_bound %}
+                        {% if form.comment.errors %}
                             {% render_field form.comment class="input textarea is-danger" placeholder='コメントを入力' %}
-                            
+                            <div class='notification is-danger'>{{ form.read_at.errors }}</div>
                         {% else %}                      
                             {% render_field form.comment class="input textarea" placeholder='コメントを入力' %}   
                         {% endif %}
